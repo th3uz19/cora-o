@@ -4,7 +4,13 @@
 
 function createStars() {
   const container = document.getElementById('starsContainer');
-  const starCount = 80;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const starCount = prefersReducedMotion ? 30 : (window.innerWidth < 768 ? 45 : 80);
+
+  if (prefersReducedMotion) {
+    container.innerHTML = '';
+    return;
+  }
 
   for (let i = 0; i < starCount; i++) {
     const star = document.createElement('div');
@@ -119,7 +125,27 @@ function animateParticles() {
 // FLOATING HEARTS (after reveal)
 // ============================================
 
+let floatingHeartsInterval = null;
+let floatingHeartsTimeouts = [];
+
+function clearFloatingHearts() {
+  if (floatingHeartsInterval) {
+    clearInterval(floatingHeartsInterval);
+    floatingHeartsInterval = null;
+  }
+
+  floatingHeartsTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+  floatingHeartsTimeouts = [];
+
+  const container = document.getElementById('floatingHearts');
+  if (container) {
+    container.innerHTML = '';
+  }
+}
+
 function spawnFloatingHearts() {
+  clearFloatingHearts();
+
   const container = document.getElementById('floatingHearts');
   const hearts = ['❤️', '💕', '💖', '💗', '💓', '💘', '💝', '🩷', '✨'];
   let count = 0;
@@ -143,19 +169,22 @@ function spawnFloatingHearts() {
 
     // Remove after animation completes
     const duration = parseFloat(heart.style.getPropertyValue('--duration')) * 1000;
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       heart.remove();
       count--;
     }, duration);
+
+    floatingHeartsTimeouts.push(timeoutId);
   }
 
   // Initial burst
   for (let i = 0; i < 15; i++) {
-    setTimeout(addHeart, i * 100);
+    const timeoutId = setTimeout(addHeart, i * 100);
+    floatingHeartsTimeouts.push(timeoutId);
   }
 
   // Continuous hearts
-  setInterval(() => {
+  floatingHeartsInterval = setInterval(() => {
     addHeart();
   }, 400);
 }
@@ -294,8 +323,7 @@ function initApp() {
     wrongMessageIndex = 0;
 
     // Clear floating hearts
-    const floatingHearts = document.getElementById('floatingHearts');
-    floatingHearts.innerHTML = '';
+    clearFloatingHearts();
   });
 }
 
