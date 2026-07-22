@@ -1,0 +1,625 @@
+/* ============================================
+   DESIGN SYSTEM — Romantic Theme
+   ============================================ */
+
+:root {
+  /* Colors */
+  --bg-primary: #0a0015;
+  --bg-gradient-start: #0a0015;
+  --bg-gradient-mid: #1a0030;
+  --bg-gradient-end: #2d0045;
+  --accent-pink: #ff4d8d;
+  --accent-rose: #ff2d6b;
+  --accent-magenta: #e91e84;
+  --accent-soft-pink: #ffb3d1;
+  --accent-gold: #ffd700;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.75);
+  --glow-pink: rgba(255, 77, 141, 0.5);
+  --glow-magenta: rgba(233, 30, 132, 0.4);
+
+  /* Typography */
+  --font-display: 'Dancing Script', cursive;
+  --font-body: 'Outfit', sans-serif;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+
+  /* Borders */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 50%;
+
+  /* Transitions */
+  --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+
+/* ============================================
+   PARTICLE CANVAS
+   ============================================ */
+
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+/* ============================================
+   STARS BACKGROUND
+   ============================================ */
+
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: var(--radius-full);
+  animation: twinkle var(--duration) ease-in-out infinite alternate;
+  opacity: 0;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.1; transform: scale(0.5); }
+  100% { opacity: 0.9; transform: scale(1.2); }
+}
+
+
+/* ============================================
+   MAIN CONTAINER
+   ============================================ */
+
+.container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  padding: var(--space-md);
+}
+
+
+/* ============================================
+   SCREENS
+   ============================================ */
+
+.screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.screen.active {
+  display: flex;
+}
+
+
+/* ============================================
+   SCREEN 1 — INITIAL
+   ============================================ */
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  background: linear-gradient(135deg, var(--accent-soft-pink), var(--accent-pink), var(--accent-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeInDown 1s ease-out;
+  text-shadow: none;
+  filter: drop-shadow(0 0 20px var(--glow-pink));
+}
+
+.subtitle {
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: 300;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xl);
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+
+/* ============================================
+   MAGIC BUTTON
+   ============================================ */
+
+.magic-button {
+  position: relative;
+  padding: 18px 48px;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--accent-rose), var(--accent-magenta));
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all var(--transition-bounce);
+  animation: fadeInUp 1s ease-out 0.6s both, pulse 2s ease-in-out 1.6s infinite;
+  box-shadow:
+    0 4px 15px var(--glow-pink),
+    0 0 40px var(--glow-magenta),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+.magic-button:hover {
+  transform: scale(1.08) translateY(-3px);
+  box-shadow:
+    0 8px 30px var(--glow-pink),
+    0 0 60px var(--glow-magenta),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.magic-button:active {
+  transform: scale(0.95);
+}
+
+.button-text {
+  position: relative;
+  z-index: 2;
+}
+
+.button-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  animation: rotateGlow 3s linear infinite;
+  z-index: 1;
+}
+
+@keyframes rotateGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 4px 15px var(--glow-pink), 0 0 40px var(--glow-magenta); }
+  50% { box-shadow: 0 4px 25px var(--glow-pink), 0 0 80px var(--glow-magenta), 0 0 120px rgba(255, 45, 107, 0.2); }
+}
+
+
+/* ============================================
+   BUTTON → HEART TRANSFORMATION
+   ============================================ */
+
+.magic-button.transforming {
+  animation: buttonToHeart 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  pointer-events: none;
+}
+
+@keyframes buttonToHeart {
+  0% {
+    border-radius: 60px;
+    padding: 18px 48px;
+    opacity: 1;
+  }
+  40% {
+    border-radius: 50%;
+    padding: 30px;
+    width: 80px;
+    height: 80px;
+    font-size: 0;
+  }
+  70% {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    opacity: 1;
+    transform: scale(1.3);
+  }
+  100% {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+
+/* ============================================
+   SCREEN 2 — HEART REVEAL
+   ============================================ */
+
+.heart-wrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-bottom: var(--space-lg);
+  animation: heartAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes heartAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-15deg);
+  }
+  60% {
+    transform: scale(1.2) rotate(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.heart {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: heartbeat 1.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px var(--glow-pink)) drop-shadow(0 0 60px var(--glow-magenta));
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.08); }
+  60% { transform: scale(1); }
+}
+
+.heart-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+/* ============================================
+   SCREEN 2 — QUIZ
+   ============================================ */
+
+.quiz-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-soft-pink), var(--accent-pink), var(--accent-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px var(--glow-pink));
+  margin-bottom: var(--space-xs);
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.quiz-subtitle {
+  font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+  font-weight: 300;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 340px;
+  margin-bottom: var(--space-lg);
+}
+
+.quiz-option {
+  position: relative;
+  padding: 14px 24px;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+.quiz-option:nth-child(1) { animation-delay: 0.15s; }
+.quiz-option:nth-child(2) { animation-delay: 0.25s; }
+.quiz-option:nth-child(3) { animation-delay: 0.35s; }
+.quiz-option:nth-child(4) { animation-delay: 0.45s; }
+.quiz-option:nth-child(5) { animation-delay: 0.55s; }
+
+.quiz-option:hover {
+  background: rgba(255, 77, 141, 0.15);
+  border-color: rgba(255, 77, 141, 0.4);
+  transform: translateX(8px);
+  box-shadow: 0 0 20px rgba(255, 77, 141, 0.15);
+}
+
+.quiz-option.selected {
+  background: linear-gradient(135deg, rgba(255, 45, 107, 0.3), rgba(233, 30, 132, 0.3));
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 25px var(--glow-pink), inset 0 0 15px rgba(255, 77, 141, 0.1);
+  transform: translateX(8px) scale(1.02);
+}
+
+.confirm-button {
+  position: relative;
+  padding: 14px 40px;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--accent-rose), var(--accent-magenta));
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all var(--transition-bounce);
+  box-shadow: 0 4px 15px var(--glow-pink), 0 0 30px var(--glow-magenta);
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out 0.65s both;
+}
+
+.confirm-button:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+  box-shadow: none;
+}
+
+.confirm-button:not(:disabled):hover {
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 8px 30px var(--glow-pink), 0 0 50px var(--glow-magenta);
+}
+
+.confirm-button:not(:disabled):active {
+  transform: scale(0.95);
+}
+
+.quiz-feedback {
+  margin-top: var(--space-md);
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: 600;
+  min-height: 2em;
+  color: var(--accent-soft-pink);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.quiz-feedback.visible {
+  opacity: 1;
+  animation: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shakeIt {
+  0%, 100% { transform: translateX(0); }
+  10%, 50%, 90% { transform: translateX(-8px); }
+  30%, 70% { transform: translateX(8px); }
+}
+
+.quiz-options.shake {
+  animation: shakeIt 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+
+/* ============================================
+   SCREEN 3 — HEART REVEAL
+   ============================================ */
+
+/* ============================================
+   LOVE MESSAGE
+   ============================================ */
+
+.love-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-soft-pink), var(--accent-pink), var(--accent-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px var(--glow-pink));
+  margin-bottom: var(--space-sm);
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.5s forwards;
+}
+
+.love-message {
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  font-weight: 300;
+  color: var(--text-secondary);
+  max-width: 400px;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.8s forwards;
+}
+
+.back-button {
+  margin-top: var(--space-lg);
+  padding: 10px 28px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 1.2s forwards;
+  z-index: 2;
+  position: relative;
+}
+
+.back-button:hover {
+  color: var(--text-primary);
+  background: rgba(255, 77, 141, 0.15);
+  border-color: rgba(255, 77, 141, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 77, 141, 0.15);
+}
+
+
+/* ============================================
+   FLOATING HEARTS
+   ============================================ */
+
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: var(--size);
+  opacity: 0;
+  animation: floatUp var(--duration) ease-out var(--delay) forwards;
+  z-index: 0;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0.5);
+  }
+  10% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-110vh) translateX(var(--drift)) rotate(var(--rotation)) scale(1);
+  }
+}
+
+
+/* ============================================
+   UTILITY ANIMATIONS
+   ============================================ */
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow effect for the whole page after reveal */
+body.revealed {
+  background: linear-gradient(135deg, #0d001a, #1f0033, #3a005c);
+}
+
+body.revealed::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(255, 45, 107, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: fadeInDown 2s ease-out;
+}
+
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 480px) {
+  .magic-button {
+    padding: 16px 40px;
+    font-size: 1.05rem;
+  }
+
+  .heart-wrapper {
+    width: 150px;
+    height: 150px;
+  }
+}
