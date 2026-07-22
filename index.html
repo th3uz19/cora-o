@@ -18,27 +18,27 @@
 
   <main class="container" id="mainContainer">
     <!-- Tela inicial -->
-    <section class="screen active" id="screen1">
-      <h1 class="title">Ei, tenho algo pra te mostrar... 💫</h1>
+    <section class="screen active" id="screen1" aria-labelledby="titleScreen1">
+      <h1 class="title" id="titleScreen1">Ei, tenho algo pra te mostrar... 💫</h1>
       <p class="subtitle">Clica no botão aqui embaixo</p>
-      <button class="magic-button" id="magicButton">
+      <button class="magic-button" id="magicButton" type="button" aria-label="Abrir surpresa">
         <span class="button-text">Clica aqui ❤️</span>
         <span class="button-glow"></span>
       </button>
     </section>
 
     <!-- Tela do quiz -->
-    <section class="screen" id="screen2">
-      <h2 class="quiz-title">O quanto você gosta do Matheus? 🤔</h2>
+    <section class="screen" id="screen2" aria-labelledby="quizTitle">
+      <h2 class="quiz-title" id="quizTitle">O quanto você gosta do Matheus? 🤔</h2>
       <p class="quiz-subtitle">Escolha sabiamente...</p>
-      <div class="quiz-options" id="quizOptions">
-        <button class="quiz-option" data-value="0">0% 💔</button>
-        <button class="quiz-option" data-value="25">25% 😐</button>
-        <button class="quiz-option" data-value="50">50% 🤷</button>
-        <button class="quiz-option" data-value="75">75% 😊</button>
-        <button class="quiz-option" data-value="100">100% 😍</button>
+      <div class="quiz-options" id="quizOptions" role="list">
+        <button class="quiz-option" data-value="0" type="button" aria-label="0%">0% 💔</button>
+        <button class="quiz-option" data-value="25" type="button" aria-label="25%">25% 😐</button>
+        <button class="quiz-option" data-value="50" type="button" aria-label="50%">50% 🤷</button>
+        <button class="quiz-option" data-value="75" type="button" aria-label="75%">75% 😊</button>
+        <button class="quiz-option" data-value="100" type="button" aria-label="100%">100% 😍</button>
       </div>
-      <button class="confirm-button" id="confirmButton" disabled>
+      <button class="confirm-button" id="confirmButton" type="button" disabled aria-label="Confirmar resposta">
         <span class="button-text">Confirmar ✓</span>
         <span class="button-glow"></span>
       </button>
@@ -46,7 +46,7 @@
     </section>
 
     <!-- Tela do coração -->
-    <section class="screen" id="screen3">
+    <section class="screen" id="screen3" aria-labelledby="loveTitle">
       <div class="heart-wrapper" id="heartWrapper">
         <div class="heart" id="heart">
           <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" class="heart-svg">
@@ -82,11 +82,11 @@
       </div>
       <h2 class="love-title" id="loveTitle">Fresca!! ❤️</h2>
       <p class="love-message" id="loveMessage">Você é a melhor pessoa que já conheci!!</p>
-      <button class="back-button" id="backButton">↩ Voltar ao início</button>
+      <button class="back-button" id="backButton" type="button" aria-label="Voltar ao início">↩ Voltar ao início</button>
       <div class="floating-hearts" id="floatingHearts"></div>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

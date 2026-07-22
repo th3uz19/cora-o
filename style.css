@@ -34,15 +34,27 @@
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-full: 50%;
+  --radius-pill: 60px;
+
+  /* Shadows */
+  --shadow-button: 0 4px 15px var(--glow-pink), 0 0 40px var(--glow-magenta);
+  --shadow-button-hover: 0 8px 30px var(--glow-pink), 0 0 60px var(--glow-magenta);
+  --shadow-quiz: 0 0 20px rgba(255, 77, 141, 0.15);
+  --shadow-quiz-selected: 0 0 25px var(--glow-pink), inset 0 0 15px rgba(255, 77, 141, 0.1);
 
   /* Transitions */
   --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --transition-bounce: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Decorative */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-strong: rgba(255, 77, 141, 0.4);
 }
 
 
 /* ============================================
-   RESET & BASE
+   ROOT & RESET
    ============================================ */
 
 *, *::before, *::after {
@@ -82,7 +94,7 @@ button:focus-visible,
 
 
 /* ============================================
-   PARTICLE CANVAS
+   LAYOUT
    ============================================ */
 
 #particleCanvas {
@@ -97,7 +109,7 @@ button:focus-visible,
 
 
 /* ============================================
-   STARS BACKGROUND
+   BACKGROUNDS
    ============================================ */
 
 .stars-container {
@@ -127,7 +139,7 @@ button:focus-visible,
 
 
 /* ============================================
-   MAIN CONTAINER
+   CONTAINER
    ============================================ */
 
 .container {
@@ -162,7 +174,7 @@ button:focus-visible,
 
 
 /* ============================================
-   SCREEN 1 — INITIAL
+   COMPONENTS
    ============================================ */
 
 .title {
@@ -201,24 +213,18 @@ button:focus-visible,
   color: var(--text-primary);
   background: linear-gradient(135deg, var(--accent-rose), var(--accent-magenta));
   border: none;
-  border-radius: 60px;
+  border-radius: var(--radius-pill);
   cursor: pointer;
   overflow: hidden;
   transition: all var(--transition-bounce);
   animation: fadeInUp 1s ease-out 0.6s both, pulse 2s ease-in-out 1.6s infinite;
-  box-shadow:
-    0 4px 15px var(--glow-pink),
-    0 0 40px var(--glow-magenta),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-button), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   z-index: 10;
 }
 
 .magic-button:hover {
   transform: scale(1.08) translateY(-3px);
-  box-shadow:
-    0 8px 30px var(--glow-pink),
-    0 0 60px var(--glow-magenta),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-button-hover), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .magic-button:active {
@@ -247,7 +253,7 @@ button:focus-visible,
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 4px 15px var(--glow-pink), 0 0 40px var(--glow-magenta); }
+  0%, 100% { box-shadow: var(--shadow-button); }
   50% { box-shadow: 0 4px 25px var(--glow-pink), 0 0 80px var(--glow-magenta), 0 0 120px rgba(255, 45, 107, 0.2); }
 }
 
@@ -263,7 +269,7 @@ button:focus-visible,
 
 @keyframes buttonToHeart {
   0% {
-    border-radius: 60px;
+    border-radius: var(--radius-pill);
     padding: 18px 48px;
     opacity: 1;
   }
@@ -382,8 +388,8 @@ button:focus-visible,
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.06);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-smooth);
@@ -402,13 +408,13 @@ button:focus-visible,
   background: rgba(255, 77, 141, 0.15);
   border-color: rgba(255, 77, 141, 0.4);
   transform: translateX(8px);
-  box-shadow: 0 0 20px rgba(255, 77, 141, 0.15);
+  box-shadow: var(--shadow-quiz);
 }
 
 .quiz-option.selected {
   background: linear-gradient(135deg, rgba(255, 45, 107, 0.3), rgba(233, 30, 132, 0.3));
   border-color: var(--accent-pink);
-  box-shadow: 0 0 25px var(--glow-pink), inset 0 0 15px rgba(255, 77, 141, 0.1);
+  box-shadow: var(--shadow-quiz-selected);
   transform: translateX(8px) scale(1.02);
 }
 
@@ -421,11 +427,11 @@ button:focus-visible,
   color: var(--text-primary);
   background: linear-gradient(135deg, var(--accent-rose), var(--accent-magenta));
   border: none;
-  border-radius: 60px;
+  border-radius: var(--radius-pill);
   cursor: pointer;
   overflow: hidden;
   transition: all var(--transition-bounce);
-  box-shadow: 0 4px 15px var(--glow-pink), 0 0 30px var(--glow-magenta);
+  box-shadow: var(--shadow-button);
   opacity: 0;
   animation: fadeInUp 0.5s ease-out 0.65s both;
 }
@@ -439,7 +445,7 @@ button:focus-visible,
 
 .confirm-button:not(:disabled):hover {
   transform: scale(1.06) translateY(-2px);
-  box-shadow: 0 8px 30px var(--glow-pink), 0 0 50px var(--glow-magenta);
+  box-shadow: var(--shadow-button-hover);
 }
 
 .confirm-button:not(:disabled):active {
@@ -517,9 +523,9 @@ button:focus-visible,
   font-size: 0.9rem;
   font-weight: 400;
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--glass-bg);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 60px;
+  border-radius: var(--radius-pill);
   cursor: pointer;
   transition: all var(--transition-smooth);
   backdrop-filter: blur(8px);
@@ -581,7 +587,7 @@ button:focus-visible,
 
 
 /* ============================================
-   UTILITY ANIMATIONS
+   ANIMATIONS
    ============================================ */
 
 @keyframes fadeInDown {
@@ -624,6 +630,10 @@ body.revealed::after {
   animation: fadeInDown 2s ease-out;
 }
 
+
+/* ============================================
+   UTILITIES
+   ============================================ */
 
 /* ============================================
    RESPONSIVE
